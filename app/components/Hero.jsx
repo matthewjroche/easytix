@@ -1,4 +1,5 @@
 import React from "react";
+import Search from "../search/page";
 
 export const Hero = () => {
   return (
@@ -18,7 +19,10 @@ export const Hero = () => {
           <p className="mb-5">
           Unlock a world of excitement and entertainment with our curated selection of events. From electrifying concerts to captivating art exhibitions, embark on unforgettable experiences that will leave you inspired. Start exploring now and let the adventure begin!
           </p>
+          <a href="/search">
           <button className="btn btn-primary">Get Started</button>
+          {/* <Search></Search> */}
+          </a>
         </div>
       </div>
     </div>

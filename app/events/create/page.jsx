@@ -1,8 +1,10 @@
-import React from "react";
-import Search from "../search/page";
+import React from 'react'
+import EventCreationForm from '@/app/components/EventCreationForm'
+import { BackgroundHero } from '@/app/components/BackgroundHero'
 
-export const BackgroundHero = () => {
+export default function page(){
   return (
+    <div>
     <div
       className="hero min-h-screen"
       style={{
@@ -13,6 +15,8 @@ export const BackgroundHero = () => {
     >
       <div className="hero-overlay bg-opacity-60"></div>
       <div className="hero-content text-center text-neutral-content">
+
+      <EventCreationForm/>
         <div className="max-w-md">
         
 
@@ -21,5 +25,7 @@ export const BackgroundHero = () => {
         </div>
       </div>
     </div>
-  );
-};
+    
+    </div>
+  )
+}

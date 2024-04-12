@@ -5,8 +5,6 @@ import { UserEventCard } from "../components/UserEventCard";
 import { UserEventList } from "../components/UserEventList";
 import { BackgroundHero } from "../components/BackgroundHero";
 
-
-
 export default function ProfileClient() {
   const { user, error, isLoading } = useUser();
 
@@ -15,38 +13,28 @@ export default function ProfileClient() {
 
   return (
     user && (
-
-        
       <div flex>
-        
         <div className="flex flex-col w-full lg:flex-row">
           <div className="grid flex-grow card bg-base-300 rounded-box place-items-center">
-          <UserCard user={user}></UserCard>
+            <UserCard user={user}></UserCard>
 
-
-
-
-
-
-
-
-
+            {/* <button className="btn">Create an event</button> */}
+            <a href="/events/create">
+              <button className="btn btn-active btn-primary">
+                Create an event
+              </button>
+            </a>
           </div>
           <div className="divider lg:divider-horizontal"></div>
           <div className="grid flex-grow card bg-base-300 rounded-box place-items-center">
-            
             {/* <UserEventList/> */}
             <UserEventCard></UserEventCard>
 
             <UserEventCard></UserEventCard>
 
-
             <UserEventCard></UserEventCard>
-
-
           </div>
         </div>
-
       </div>
     )
   );
