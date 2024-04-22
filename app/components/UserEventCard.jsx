@@ -16,7 +16,7 @@ export const UserEventCard = ({
   function handleClick(){
 
     console.log("Log1")
-    // QRCode.generate()
+    
 
 
   }
@@ -47,7 +47,7 @@ export const UserEventCard = ({
           Get QR code
         </button>
 
-       
+        <QRCard text="https://www.awd.com"/>
       </div>
     </div>
   );

@@ -1,5 +1,7 @@
+"use client"
 import React from "react";
 import Search from "../search/page";
+import NightModeToggle from "./NightModeToggle";
 
 export const Header = () => {
   return (
@@ -62,7 +64,8 @@ export const Header = () => {
             </svg>
           </button>
         </a>
-        <button className="btn btn-ghost btn-circle">
+        <NightModeToggle/>
+        {/* <button className="btn btn-ghost btn-circle">
           <div className="indicator">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -71,6 +74,7 @@ export const Header = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
+              
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -80,7 +84,7 @@ export const Header = () => {
             </svg>
             <span className="badge badge-xs badge-primary indicator-item"></span>
           </div>
-        </button>
+        </button> */}
       </div>
     </div>
   );
