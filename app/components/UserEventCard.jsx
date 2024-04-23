@@ -47,7 +47,7 @@ export const UserEventCard = ({
           Get QR code
         </button>
 
-        <QRCard text="https://www.awd.com"/>
+        {/* <QRCard text="https://www.awd.com"/> */}
       </div>
     </div>
   );

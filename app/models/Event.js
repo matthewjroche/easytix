@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+mongoose.connect(process.env.MONGODB_URI);
+mongoose.Promise = global.Promise;
 
 // Define the schema for the "Event"
 const eventSchema = new mongoose.Schema(
@@ -27,10 +29,10 @@ const eventSchema = new mongoose.Schema(
       required: [true, "The event location is required"],
       trim: true,
     },
-    image: {
-      type: String, // URL to the image file
-      required: false,
-    },
+    // image: {
+    //   type: String, // URL to the image file
+    //   required: false,
+    // },
     standardTickets: {
       type: Number,
       required: [true, "The number of standard tickets is required"],
