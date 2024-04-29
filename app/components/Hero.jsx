@@ -1,5 +1,7 @@
+"use client"
 import React from "react";
 import Search from "../search/page";
+import QRCard from "./QRCard";
 
 export const Hero = () => {
   return (
@@ -23,6 +25,11 @@ export const Hero = () => {
           <button className="btn btn-primary">Get Started</button>
           {/* <Search></Search> */}
           </a>
+
+          {/* <button className="btn btn-primary">Modal Test</button>
+          <button className="btn" onClick={()=>document.getElementById(QRCard.QRModal).showModal()}>open modal</button>
+          <QRCard/> */}
+
         </div>
       </div>
     </div>

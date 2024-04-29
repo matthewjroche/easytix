@@ -1,64 +1,58 @@
-"use client"
 // import React from "react";
-// import { QRCode } from "qrcode";
 
-// export const QRCard = () => {
-//   const qrgenerator = () => {
-//     QRCode.generate();
-//   };
+// const QRCard = () => {
+
 
 //   return (
-//     <div className="card w-96 bg-base-100 shadow-xl">
-//       <figure>
-//         <img
-//           src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-//           alt="Shoes"
-//         />
-//       </figure>
-//       <div className="card-body">
-//         <h2 className="card-title">
-//           Shoes!
-//           <div className="badge badge-secondary">NEW</div>
-//         </h2>
-//         <p>If a dog chews shoes whose shoes does he choose?</p>
-//         <div className="card-actions justify-end">
-//           <div className="badge badge-outline">Fashion</div>
-//           <div className="badge badge-outline">Products</div>
-//         </div>
+    
+//     <dialog id="QRModal" className="modal">
+//       <div className="modal-box">
+//         <h3 className="font-bold text-lg">Hello!</h3>
+//         <p className="py-4">Press ESC key or click outside to close</p>
 //       </div>
-//     </div>
+//       <form method="dialog" className="modal-backdrop">
+//         <button>close</button>
+//       </form>
+//     </dialog>
 //   );
 // };
 
 // export default QRCard;
 
 
+import React from 'react'
 
-// components/QRCard.js
-import React, { useEffect, useState } from 'react';
-import QRCode from 'qrcode';
-
-const QRCard = ({ text }) => {
-  const [qrUrl, setQrUrl] = useState('');
+function Modal({title, text, visible, onClose}) {
+  const modalRef = useRef(null);
 
   useEffect(() => {
-    QRCode.toDataURL(text)
-      .then(url => {
-        setQrUrl(url);
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  }, [text]);
+    if (!modalRef.current) {
+      return;
+    }
+    visible ? modalRef.current.showModal() : modalRef.current.close();
+  }, [visible]);
+
+  const handleClose = () => {
+    if (onClose) {
+      onClose();
+    }
+  }
+
+  const handleESC = (event) => {
+    event.preventDefault();
+    handleClose();
+  }
 
   return (
-    <div className="card bg-base-100 shadow-xl p-5 text-center">
-      <div className="card-body">
-        <h2 className="card-title">Scan the QR Code</h2>
-        {qrUrl ? <img src={qrUrl} alt="QR Code" className="mx-auto"/> : <p>Loading...</p>}
-      </div>
-    </div>
+    <dialog ref={modalRef} id="my_modal_1" className="modal" onCancel={handleESC}>
+      <form method="dialog" className="modal-box">
+        <h3 className="font-bold text-lg">Hello!</h3>
+        <p className="py-4">Press ESC key or click the button below to close</p>
+        <div className="modal-action">
+          {/* if there is a button in form, it will close the modal */}
+          <button className="btn" onClick={handleClose}>Close</button>
+        </div>
+      </form>
+    </dialog>
   );
-};
-
-export default QRCard;
+}
