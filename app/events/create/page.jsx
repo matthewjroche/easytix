@@ -1,6 +1,7 @@
 import React from 'react'
 import EventCreationForm from '@/app/components/EventCreationForm'
 import { BackgroundHero } from '@/app/components/BackgroundHero'
+import EventForm2 from '@/app/components/EventForm2'
 
 export default function page(){
   return (
@@ -16,7 +17,8 @@ export default function page(){
       <div className="hero-overlay bg-opacity-60"></div>
       <div className="hero-content text-center text-neutral-content">
 
-      <EventCreationForm/>
+      {/* <EventCreationForm/> */}
+      <EventForm2/>
         <div className="max-w-md">
         
 

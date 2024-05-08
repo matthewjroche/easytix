@@ -3,22 +3,13 @@ import React from "react";
 export const TicketForm = () => {
   return (
     <div>
-
-        
       <div className="hero min-h-screen bg-base-200">
-        
         <div className="hero-content flex-row ">
+          <h1 className="text-5xl font-bold">Your Order</h1>
 
-        <h1 className="text-5xl font-bold">Your Order</h1>
-            
           <div className="text-center lg:text-left">
-       
-            <p className="py-6">
-              
-            </p>
+            <p className="py-6"></p>
           </div>
-
-
 
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
             <form className="card-body">
@@ -53,11 +44,12 @@ export const TicketForm = () => {
                 <button className="btn btn-primary">Login</button>
               </div>
             </form>
-
-            
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+
+

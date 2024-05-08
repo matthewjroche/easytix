@@ -3,7 +3,6 @@ import { QRCard } from "./QRCard";
 import Popup from "reactjs-popup";
 import { QRCode } from "qrcode";
 
-
 export const UserEventCard = ({
   props,
   title,
@@ -12,23 +11,16 @@ export const UserEventCard = ({
   description,
   image,
 }) => {
-
-  function handleClick(){
-
-    console.log("Log1")
-    
-
-
+  function handleClick() {
+    console.log("Log1");
   }
-
-
 
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <figure>
         <img
-          //   src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-          src="{image}"
+          // src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+          // src="{image}"
           alt="EVENT IMAGE"
         />
       </figure>

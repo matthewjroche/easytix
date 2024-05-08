@@ -4,6 +4,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { UserEventCard } from "../components/UserEventCard";
 import { UserEventList } from "../components/UserEventList";
 import { BackgroundHero } from "../components/BackgroundHero";
+import { QRModal } from "../components/QRModal";
 
 export default function ProfileClient() {
   const { user, error, isLoading } = useUser();
@@ -33,6 +34,9 @@ export default function ProfileClient() {
             <UserEventCard></UserEventCard>
 
             <UserEventCard></UserEventCard>
+            <button className="btn" onClick={()=>document.getElementById('my_modal_5').showModal()}>open modal</button>
+            <QRModal></QRModal>
+
           </div>
         </div>
       </div>

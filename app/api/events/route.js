@@ -1,225 +1,269 @@
-// In a file called eventModel.js
-
+// // app/api/events/route.js
 // import { NextResponse } from "next/server";
+// import dbConnect from "../../lib/dbConnect";
+// import Event from "../../models/Event";
 
-// import mongoose from "mongoose";
+// // Export with uppercase method name
+// export async function POST() {
+//   await dbConnect();
 
-// // Define the event schema
-// const eventSchema = new mongoose.Schema({
-//   title: { type: String, required: true },
-//   description: { type: String, required: true },
-//   genre: { type: String, required: true },
-//   date: { type: Date, required: true },
-//   location: { type: String, required: true },
-//   image: { type: String, required: true },
-//   standardTickets: { type: Number, required: true },
-//   vipTickets: { type: Number, required: true },
-// });
-
-// // Define the Event model
-// let Event;
-// try {
-//   Event = mongoose.model("Event");
-// } catch {
-//   Event = mongoose.model("Event", eventSchema);
-// }
-
-// export default Event;
-
-// export async function GET(req, res) {
 //   try {
-//     // logic to fetch events from the database goes here
-//     const events = await fetchEventsFromDatabase();
-
-//     // Send the events as a response
-//     res.status(200).json(events);
-//   } catch (error) {
-//     console.error("Error fetching events:", error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// }
-
-// export async function POST(req, res) {
-//   try {
-//     // Parse the body data
-//     const { title, description, genre, date, location, standardTickets, vipTickets } = req.body;
-
-//     // Create a new event instance using the Event model
-//     const newEvent = new Event({
-//       title,
-//       description,
-//       genre,
-//       date: new Date(date), // Ensure the date is correctly formatted as a Date object
-//       location,
-//       standardTickets,
-//       vipTickets
-//     });
-
-//     // Save the new event to the database
+//     const newEvent = new Event(req.body);
 //     await newEvent.save();
+//     console.log("event success")
 
-//     // Send a success response
-//     console.log("New event created:", newEvent);
-//     res.status(201).json({ message: "Event created successfully", eventId: newEvent._id });
+//     return new Response("201 success", {
+//       status: 201,
+//     });
 //   } catch (error) {
-//     console.error("Error creating event:", error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// }
-
-// export async function PUT(req, res) {
-//   try {
-//     //  logic to update an existing event in the database goes here
-//     console.log("PUT req test");
-
-//     // Send a success response
-//     res.status(200).json({ message: "Event updated successfully" });
-//   } catch (error) {
-//     console.error("Error updating event:", error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// }
-
-// export async function DELETE(req, res) {
-//   try {
-//     // Your logic to delete an existing event from the database goes here
-//     console.log("DELETE req test");
-
-//     // Send a success response
-//     res.status(200).json({ message: "Event deleted successfully" });
-//   } catch (error) {
-//     console.error("Error deleting event:", error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// }
-
-// pages/api/events/create.js
-
-// export default async function handler(req, res) {
-//   if (req.method !== 'POST') {
-//       // Only POST method is allowed, reject all other methods
-//       res.setHeader('Allow', ['POST']);
-//       return res.status(405).end(`Method ${req.method} Not Allowed`);
-//   }
-
-//   try {
-//       const data = req.body;  // Here you would typically add database handling logic
-//       console.log(data);  // Log the received data for debugging
-
-//       // Simulate event creation and send a success response
-//       res.status(201).json({ message: 'Event created successfully', data });
-//   } catch (error) {
-//       // If something goes wrong, send a server error status
-//       res.status(500).json({ message: 'Failed to create the event', error: error.message });
+//     console.log("oops")
+//     return new Response("500 fail", {
+//       status: 500,
+//     });
 //   }
 // }
 
 // pages/api/events.js
-// import { NextApiResponse } from "next";
-// import mongoose from "mongoose";
-// import { nextConnect } from "next-connect";
+import dbConnect from "../../lib/dbConnect"; // Ensure this path is correct
+import Event from "../../models/Event"; // Ensure this path and model are correctly defined
 
-// const handler = nextConnect();
+export async function POST(req, res) {
+  await dbConnect();
 
-// // MongoDB connection logic
-// mongoose.connect(process.env.MONGO_URI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-
-// const eventSchema = new mongoose.Schema({
-//   title: { type: String, required: true },
-//   description: { type: String, required: true },
-//   genre: { type: String, required: true },
-//   date: { type: Date, required: true },
-//   location: { type: String, required: true },
-//   standardTickets: { type: Number, required: true },
-//   vipTickets: { type: Number, required: true },
-// });
-
-// const Event = mongoose.models.Event || mongoose.model("Event", eventSchema);
-
-// // POST - Create a new event
-// handler.post(async (req, res) => {
-//   try {
-//     const event = new Event(req.body);
-//     await event.save();
-//     res
-//       .status(201)
-//       .json({ message: "Event created successfully", eventId: event._id });
-//   } catch (error) {
-//     console.error("Error creating event:", error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// });
-
-// // GET - Retrieve all events
-// handler.get(async (req, res) => {
-//   try {
-//     const events = await Event.find({});
-//     res.status(200).json(events);
-//   } catch (error) {
-//     console.error("Error fetching events:", error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// });
-
-// // PUT - Update an existing event
-// handler.put(async (req, res) => {
-//   const { id } = req.query;
-//   try {
-//     const updatedEvent = await Event.findByIdAndUpdate(id, req.body, {
-//       new: true,
-//     });
-//     if (!updatedEvent) {
-//       return res.status(404).json({ error: "Event not found" });
-//     }
-//     res
-//       .status(200)
-//       .json({ message: "Event updated successfully", updatedEvent });
-//   } catch (error) {
-//     console.error("Error updating event:", error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// });
-
-// // DELETE - Delete an event
-// handler.delete(async (req, res) => {
-//   const { id } = req.query;
-//   try {
-//     const deletedEvent = await Event.findByIdAndDelete(id);
-//     if (!deletedEvent) {
-//       return res.status(404).json({ error: "Event not found" });
-//     }
-//     res.status(200).json({ message: "Event deleted successfully" });
-//   } catch (error) {
-//     console.error("Error deleting event:", error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// });
-
-// export default handler;
-
-import Event from "@/app/models/Event";
-import { NextResponse } from "next/server";
-
-export async function POST(req) {
   try {
-    const body = await req.json();
-    const eventData = body.formData;
-    await Event.create(eventData);
+    // Parse the JSON body of the request
+    const {
+      title,
+      description,
+      genre,
+      date,
+      location,
+      standardTickets,
+      vipTickets,
+    } = req.body;
 
-    return NextResponse.json({ message: "Ticket Created" }, { status: 201 });
+    // Create a new event document
+    const newEvent = new Event({
+      title,
+      description,
+      genre,
+      date, // Ensure date is correctly formatted for MongoDB
+      location,
+      standardTickets, // Convert to number
+      vipTickets, // Convert to number
+    });
+
+    // Save the event to the database
+    const savedEvent = await newEvent.save();
+    console.log("SUCCESS")
+    return new Response("201 success", {
+      status: 201,
+    });
   } catch (error) {
-    return NextResponse.json({ message: "Error", error }, { status: 500 });
+    console.log(error);
+    return new Response("500 fail", {
+      status: 500,
+    });
+
+    // Successfully created the event
+    //     res.status(201).json({ message: 'Event created successfully', data: savedEvent });
+    //   } catch (error) {
+    //     // Handle errors in event creation or saving
+    //     console.error('Error creating event:', error);
+    //     res.status(500).json({ error: 'Failed to create event', message: error.message });
+    //   }
+    // }
   }
 }
 
-export async function GET(req) {
-  try {
-    const events = await Event.find();
-    return NextResponse.json({ events }, { status: 200 });
-  } catch (error) {
-    return NextResponse.json({ message: "Error", error }, { status: 500 });
+// // app/api/events/route.js
+// import dbConnect from "../../lib/dbConnect";
+// import Event from "../../models/Event";
+
+// export async function POST(req, res) {
+//   await dbConnect();
+//   console.log("!!!!!!!!!!!!!!!!!!!!!REQ",req,"????????????????res",res)
+//   try {
+//     const newEvent = new Event(req.body);
+//     const savedEvent = await newEvent.save();
+//     console.log("Event saved:", savedEvent);  // Correctly log the saved event
+
+//     res.status(201).json({ message: "Event created successfully", data: savedEvent });
+//   } catch (error) {
+//     console.error("Error creating event:", error);  // Proper error logging
+//     res.status(500).json({ message: "Error creating event", error: error.message });
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+// export async function GET() {
+//   const res = await fetch(process.env.MONGO_URI, {
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'API-Key': process.env.DATA_API_KEY,
+//     },
+//   })
+//   const data = await res.json()
+ 
+//   return Response.json({ data })
+// }
+
+// import { NextResponse } from "next/server";
+
+// export async function GET(){
+//   // await dbConnect();
+
+//   const data = {
+//       title: 'rave',
+//       description: 'hidden'
+//   }
+//   // console.log(data)
+//   return NextResponse.json({data})
+// }
+
+// import { NextResponse } from "next/server";
+
+// export async function GET(){
+  
+
+
+
+
+
+
+
+
+
+
+//     return NextResponse.json({data})
+// }
+
+
+
+
+
+
+
+
+
+import axios from 'axios';
+import { NextApiResponse } from 'next';
+
+// export default async function handler(req, res) {
+//     if (req.method !== 'GET') {
+//         return res.status(405).json({ message: 'Method Not Allowed' });
+//     }
+
+//     const data = JSON.stringify({
+//         "collection": "events",
+//         "database": "easytix",
+//         "dataSource": "Cluster0",
+//         "projection": {
+//             "_id": 1
+//         }
+//     });
+
+//     const config = {
+//         method: 'post',
+//         url: 'https://eu-west-2.aws.data.mongodb-api.com/app/data-agnhrtv/endpoint/data/v1/action/findOne',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Access-Control-Request-Headers': '*',
+//             'api-key': process.env.MONGODB_ATLAS_API_KEY,  // Securely using the API key from environment variables
+//         },
+//         data: data
+//     };
+
+//     try {
+//         const response = await axios(config);
+//         console.log("Data fetched successfully:", response.data);
+//         res.status(200).json(response.data);
+//     } catch (error) {
+//         console.error("Error fetching data:", error);
+//         res.status(500).json({ message: "Failed to fetch data", error: error.message });
+//     }
+// }
+
+
+
+
+
+
+
+export async function GET(){
+
+//   var data = JSON.stringify({
+//     "collection": "events",
+//     "database": "easytix",
+//     "dataSource": "Cluster0",
+//     "projection": {
+//         "_id": 1
+//     }
+// });
+
+var data = JSON.stringify({
+  "collection": "events",
+  "database": "easytix",
+  "dataSource": "Cluster0",
+  "projection": {
+      "title": 1,
+      "description": 1,
+      "genre": 1,
+      "date": 1,
+      "location": 1,
+      "standardTickets": 1,
+      "vipTickets": 1,
+      "image": 1
   }
+});
+
+const config = {
+    method: 'post',
+    url: 'https://eu-west-2.aws.data.mongodb-api.com/app/data-agnhrtv/endpoint/data/v1/action/find',
+    headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Request-Headers': '*',
+        'api-key': process.env.MONGODB_ATLAS_API_KEY,  // Securely using the API key from environment variables
+    },
+    data: data
+};
+
+  try {
+    const response = await axios(config);
+    // console.log("Data fetched successfully:", response.data);
+    // return new Response("200 success", {
+    //   status: 200,
+    //   // data:response.data
+      
+    // });
+
+    // return new Response.json({response},{
+    //   stats:200
+    // })
+
+
+    return new Response(JSON.stringify(response.data), {
+      status: 200,
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  });
+    
+
+} catch (error) {
+    console.error("Error fetching data:", error);
+    console.log(error);
+    return new Response("500 fail", {
+      status: 500,
+    });
+}
 }

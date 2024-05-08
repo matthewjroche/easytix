@@ -8,12 +8,12 @@ export const EventSearchList = () => {
 
         
         <EventCard/>
+        {/* <EventCard/>
         <EventCard/>
         <EventCard/>
         <EventCard/>
         <EventCard/>
-        <EventCard/>
-        
+         */}
 
 
 
