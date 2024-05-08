@@ -268,7 +268,9 @@ export default function EventPage(params) {
                     <h2 className="card-title">Stripe Payment Portal</h2>
                     <p></p>
                     <div className="card-actions justify-end">
-                        <button className="btn btn-primary" onClick={handlePayment} disabled={!eventid}>Buy Now</button>
+                        <a href='https://buy.stripe.com/test_7sI15D2yt6Ve7GofYY'><button className="btn btn-primary"  >Buy Now</button>
+                        </a>
+                        
                     </div>
                 </div>
             </div>
